@@ -82,7 +82,7 @@ class CreateUsers extends AbstractMigration {
 
 }
 ```
-Agora para criar o arquivo execute o comando abaixo:
+Agora para criar a tabela execute o comando abaixo:
 
 ```bash
 $ cake migrations migrate
@@ -93,8 +93,57 @@ Apos gerar a table podemos conferir usando o comando:
 $ cake bake all
 ```
 
-## 3. Criando os controllers
+## 3. Criando um crud completo para Users
 
 ```bash
 $ cake bake all users
+```
+
+### 3.2 Criando uma Paginação
+
+```bash
+cake bake migration CreatePages
+```
+Ao usar o comando acima é criado na pasta config é uma sub pasta Migrations com um arquivo xxxxx_CreateUse.php
+
+```php
+<?php
+
+use Migrations\AbstractMigration;
+
+class CreatePages extends AbstractMigration {
+
+    /**
+     * Change Method.
+     *
+     * More information on this method is available here:
+     * http://docs.phinx.org/en/latest/migrations.html#the-change-method
+     * @return void
+     */
+    public function change() {
+        $table = $this->table('pages');
+        $table->addColumn('title', 'string');
+        $table->addColumn('url', 'string');
+        $table->addColumn('body', 'text');
+        $table->addColumn('created', 'timestamp', [
+            'default' => 'CURRENT_TIMESTAMP'
+        ]);
+        $table->addColumn('modified', 'datetime', [
+            'default' => null,
+            'null' => true
+        ]);
+        $table->create();
+    }
+
+}
+```
+
+Agora para criar a tabela execute o comando abaixo:
+
+```bash
+$ cake migrations migrate
+```
+
+```bash
+$ cake bake model Pages
 ```
