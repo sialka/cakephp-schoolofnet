@@ -26,8 +26,8 @@ use Cake\Routing\Route\DashedRoute;
 Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
-    $routes->connect('/paginas/*', ['controller' => 'Pages', 'action' => 'index']);
-    $routes->connect('/paginas/:action/*', ['controller' => 'Pages']);
+    // $routes->connect('/paginas/*', ['controller' => 'Pages', 'action' => 'index']);
+    // $routes->connect('/paginas/:action/*', ['controller' => 'Pages']);
     $routes->fallbacks(DashedRoute::class);
 });
 

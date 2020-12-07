@@ -76,13 +76,21 @@ class PagesController extends AppController {
     
     public function index(){
         $pages = $this->Pages->find()->all();
-        debug($pages);
-        exit;
+        // debug($pages);
+        // exit;
+        $this->set('pages', $pages);
     }
     
     public function view($id = null)
     {
-        debug('Visualizando : '.$id );
+        debug('Visualizando: '.$id );
         exit;
     }
+    
+    public function add()
+    {
+        $page = $this->Pages->newEntity();
+        $this->set(['page' => $page]);
+    }       
+          
 }
