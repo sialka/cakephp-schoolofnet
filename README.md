@@ -4,7 +4,7 @@
 
 ### 1.1 PHP
 
-É necessario ter habilitado no php os seguintes extensões:
+É necessário habilitar no PHP as seguintes extensões:
 
 - ext-intl
 - ext-mbstring
@@ -87,13 +87,15 @@ Agora para criar a tabela execute o comando abaixo:
 ```bash
 $ cake migrations migrate
 ```
-Apos gerar a table podemos conferir usando o comando:
+Após gerar a table podemos conferir usando o comando:
 
 ```bash
 $ cake bake all
 ```
 
-## 3. Criando um crud completo para Users
+## 3. Criando um CRUD completo para Users
+
+Usando o comando abaixo podemos gerar o código do CRUD completo.
 
 ```bash
 $ cake bake all users
@@ -101,10 +103,14 @@ $ cake bake all users
 
 ### 3.2 Criando uma Paginação
 
+Criando uma table para paginação.
+
 ```bash
-cake bake migration CreatePages
+$ cake bake migration CreatePages
 ```
-Ao usar o comando acima é criado na pasta config é uma sub pasta Migrations com um arquivo xxxxx_CreateUse.php
+Ao usar o comando acima é criado na pasta config é uma sub pasta Migrations com um arquivo xxxxx_CreatePages.php
+
+Agora vamos informar os campos da tabela.
 
 ```php
 <?php
@@ -143,7 +149,43 @@ Agora para criar a tabela execute o comando abaixo:
 ```bash
 $ cake migrations migrate
 ```
+Agora que já temos a tabela, vamos criar o CRUD.
 
 ```bash
 $ cake bake model Pages
+```
+### 3.2 Em Model (Entity)
+
+Vamos criar umas regras para os campos url e title.
+
+```php
+<?php
+namespace App\Model\Entity;
+
+use Cake\ORM\Entity;
+use Cake\Utility\Text;
+
+...
+class Page extends Entity
+{
+	...
+	
+	protected function _setUrl($url){
+        $url = Text::slug($url);
+        if(empty($url)){
+            $url = Text::slug($this->_properties['title']);
+        }
+        return $url;
+    }
+    
+    protected function _getTitle($title){
+        $title = strtolower($title);
+        return ucwords($title);
+    }
+    
+    protected function _getTitleUrl($param) {
+        $title = strtolower($title);
+        return ucwords($title);
+    }
+}
 ```

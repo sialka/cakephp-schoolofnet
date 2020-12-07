@@ -48,7 +48,7 @@ class Page extends Entity
         return ucwords($title);
     }
     
-    protected function _getTitleUrl($param) {
+    protected function _getTitleUrl() {
         $title = strtolower($title);
         return ucwords($title);
     }
