@@ -101,7 +101,7 @@ Usando o comando abaixo podemos gerar o código do CRUD completo.
 $ cake bake all users
 ```
 
-### 3.2 Criando uma Paginação
+### 3.2 Criando a table Pages
 
 Criando uma table para paginação.
 
@@ -189,3 +189,16 @@ class Page extends Entity
     }
 }
 ```
+
+## Controlles e Rotas
+
+## Criando View
+
+## Form Helper
+
+## Layout
+
+## Trabalhando com layout
+
+## Adicionando um Registro
+

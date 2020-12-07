@@ -73,35 +73,69 @@
 namespace App\Controller;
 
 class PagesController extends AppController {
-    
-    public function index(){
-        $pages = $this->Pages->find()->all();
-        // debug($pages);
-        // exit;
+
+    public function index() {
+        //$pages = $this->Pages->find()->all();
+        
+        $this->paginate = [
+            "limit" => 5
+        ];
+        $pages = $this->paginate($this->Pages);
         $this->set('pages', $pages);
     }
-    
-    public function view($id = null)
-    {
-        debug('Visualizando: '.$id );
-        exit;
+
+    public function view($id = null) {
+        $page = $this->Pages->get($id);
+
+        $this->set('page', $page);
+        //debug('Visualizando: '.$page );
+        //exit;
     }
-    
-    public function add()
-    {
+
+    public function add() {
         // $this->viewBuilder()->layout('layoutB');
         $page = $this->Pages->newEntity();
-        if($this->request->is('post')){
+        if ($this->request->is('post')) {
             $page = $this->Pages->patchEntity($page, $this->request->getData());
-            
-            if($this->Pages->save($page)){
+
+            if ($this->Pages->save($page)) {
                 $this->Flash->success('Salvo com sucesso');
                 return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
             }
             $this->Flash->error('Não foi possivel Salvar');
         }
-        
+
         $this->set(['page' => $page]);
-    }       
-          
+    }
+
+    public function edit($id = null) {
+        $page = $this->Pages->get($id);
+
+        if ($this->request->is(['post', 'put', 'patch'])) {
+            $page = $this->Pages->patchEntity($page, $this->request->getData());
+
+            if ($this->Pages->save($page)) {
+                $this->Flash->success('Editado com sucesso');
+                return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+            }
+            $this->Flash->error('Não foi possivel editar');
+        }
+
+        $this->set('page', $page);
+    }
+
+    public function delete($id = null) {
+        $this->request->allowMethod(['post', 'delete']);
+        $page = $this->Pages->get($id);
+
+        if ($this->Pages->delete($page)) {
+            $this->Flash->success('Deletado com sucesso');
+        } else {
+            $this->Flash->error('Não foi possivel deletar');
+        }
+
+
+        return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+    }
+
 }
