@@ -89,7 +89,18 @@ class PagesController extends AppController {
     
     public function add()
     {
+        // $this->viewBuilder()->layout('layoutB');
         $page = $this->Pages->newEntity();
+        if($this->request->is('post')){
+            $page = $this->Pages->patchEntity($page, $this->request->getData());
+            
+            if($this->Pages->save($page)){
+                $this->Flash->success('Salvo com sucesso');
+                return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+            }
+            $this->Flash->error('Não foi possivel Salvar');
+        }
+        
         $this->set(['page' => $page]);
     }       
           

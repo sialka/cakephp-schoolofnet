@@ -14,16 +14,15 @@
                 <th scope="col" class="actions"><?= __('Ações') ?></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody>            
             <?php foreach ($pages as $page): ?>
-            <tr>
-                <!--<td><?= $this->Number->format($user->id) ?></td>;-->
-                <td><?= h($page->title) ?></td>
-                <td><?= h($page->url) ?></td>
+            <tr>               
+                <td><?= $page->title ?></td>
+                <td><?= $page->url ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $page->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $page->id]) ?> 
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $page->id], ['confirm' => __('Are you sure you want to delete # {0}?', $page->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
