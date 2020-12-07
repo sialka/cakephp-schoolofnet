@@ -13,6 +13,9 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
+    public function login(){
+        
+    }
     /**
      * Index method
      *

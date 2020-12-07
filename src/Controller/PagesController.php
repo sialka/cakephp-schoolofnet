@@ -72,11 +72,21 @@
 
 namespace App\Controller;
 
+use Cake\Event\Event;
+
 class PagesController extends AppController {
+
+    public function beforeFilter(Event $event) {
+        // libera todo os metodos        
+        //$this->Auth->allow();
+        
+        // libera actions especificas
+        $this->Auth->allow(['index','view']);
+    }
 
     public function index() {
         //$pages = $this->Pages->find()->all();
-        
+
         $this->paginate = [
             "limit" => 5
         ];
